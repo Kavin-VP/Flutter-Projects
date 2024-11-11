@@ -36,7 +36,7 @@ class _QuizState extends State<Quiz> {
     if(choosedAnswers.length==questions.length)
     {
       setState(() {
-        activeScreen=ResultScreen(chosenAnswers: choosedAnswers);
+        activeScreen=ResultScreen(retryQuiz,homeScreen,chosenAnswers: choosedAnswers);
       });
 
       //choosedAnswers.clear();
@@ -49,6 +49,14 @@ class _QuizState extends State<Quiz> {
     setState(() {
       choosedAnswers.clear();
       activeScreen=QuestionScreen(addChoosedAnswer);
+    });
+  }
+
+  void homeScreen()
+  {
+    setState(() {
+      choosedAnswers.clear();
+      activeScreen=StartScreen(changeScreen);
     });
   }
   @override

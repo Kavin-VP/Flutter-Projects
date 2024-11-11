@@ -3,10 +3,11 @@ import 'package:quiz_application/data/questions.dart';
 import 'package:quiz_application/question_summary.dart';
 
 class ResultScreen extends StatelessWidget{
-  ResultScreen({super.key,required this.chosenAnswers});
+  ResultScreen(this.retryQuiz,this.homeScreen,{super.key,required this.chosenAnswers});
   
   final List<String> chosenAnswers;
-
+  Function retryQuiz;
+  Function homeScreen;
   List<Map<String,Object>> getSummaryData()
   {
     final List<Map<String,Object>> summaryData=[];
@@ -56,10 +57,30 @@ class ResultScreen extends StatelessWidget{
               const SizedBox(
                 height: 20,
               ),
-              OutlinedButton.icon(onPressed: (){}, label:const  Text('Retry Quiz',style: TextStyle(
-                color: Colors.white
-              ),),
-              icon: const Icon(Icons.refresh),)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisSize: MainAxisSize.min,
+                //crossAxisAlignment: CrossAxisAlignment.,
+                children: [
+                  OutlinedButton.icon(onPressed: ()
+                  {
+                    retryQuiz();
+                  }, label:const  Text('Retry Quiz',style: TextStyle(
+                    color: Colors.white
+                  ),),
+                  icon: const Icon(Icons.refresh),),
+                  const SizedBox(width: 20,),
+                  OutlinedButton.icon(
+                    icon: const Icon(Icons.home),
+                    onPressed: ()
+                    {
+                      homeScreen();
+                    }, label: const Text('Home',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),)),
+                ],
+              )
              ],
           ),
         ),
