@@ -17,6 +17,9 @@ class ExpensesList extends StatelessWidget{
   // }
   @override
   Widget build(BuildContext context) {
+
+     final width = MediaQuery.of(context).size.width;
+
     return ListView.builder(
       itemCount: expensesList.length,
       itemBuilder: (context, index)
@@ -26,7 +29,8 @@ class ExpensesList extends StatelessWidget{
           onDismissed: (direction){
             onRemoveExpense(expensesList[index]);
           },
-          child: ExpenseItem(expensesList[index]));
+          child:ExpenseItem(expensesList[index]),
+        );
       },
       
     );
