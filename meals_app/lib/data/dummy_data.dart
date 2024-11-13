@@ -58,7 +58,9 @@ import 'package:meals_app/models/meal.dart';
 }
 
 get mealsData {
-  return const [
+  return dummyMeals;
+}
+  const  dummyMeals =[
     Meal(
     id: 'm1',
     categories: [
@@ -408,4 +410,3 @@ get mealsData {
     isLactoseFree: true,
   ),
   ];
-}
