@@ -34,7 +34,8 @@ class _NewItemScreenState extends State<NewItemScreen>{
 
       var url = Uri.https('fir-demo-c8eb4-default-rtdb.firebaseio.com','grocery-items.json');
 
-      final response = await http.post(
+      try{
+        final response = await http.post(
               url,
               headers: {
                 'Content-Type':'application/json'
@@ -46,7 +47,6 @@ class _NewItemScreenState extends State<NewItemScreen>{
             })
             );
      
-
       if(response.statusCode>=400)
       {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -65,6 +65,16 @@ class _NewItemScreenState extends State<NewItemScreen>{
               category: _selectedCategory);
 
          Navigator.of(context).pop(item);
+      }
+      }
+      catch(ex)
+      {
+        //Navigator.of(context).pop(null);
+        ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context)
+                  .showSnackBar( const SnackBar(
+                    duration: Duration(seconds: 2),
+                  content:Text('Something went wrong...'),));
       }
     }
     
@@ -164,9 +174,12 @@ class _NewItemScreenState extends State<NewItemScreen>{
                           )
                       ], 
                       onChanged: (value){
-                        setState(() {
-                          _selectedCategory = value!;
+                        if(value!=null)
+                        {
+                           setState(() {
+                          _selectedCategory = value;
                         });
+                        }
                       }
                       // onChanged: (value){},
                       // ))

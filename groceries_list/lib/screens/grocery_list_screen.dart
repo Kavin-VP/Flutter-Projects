@@ -84,11 +84,8 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
           groceryItems = dummyList;
           _isLoading=false;
         });
-
-      }
-       
+      }       
     }
-
 
   void _deleteItem(GroceryItem item,int index) async
   {
