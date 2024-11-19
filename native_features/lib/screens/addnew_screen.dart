@@ -55,49 +55,51 @@ class _AddNewScreenState extends ConsumerState<AddnewScreen>{
       appBar: AppBar(
         title: const Text('Add new Place'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-          children: [
-            TextFormField(
-              controller: _titleController,
-              maxLength: 20,
-              decoration: const InputDecoration(
-                label: Text('Place name'),
-              ),
-              validator: (value){
-                if(value==null || value.isEmpty)
-                {
-                  return 'please enter a place';
-                }
-                return null;
-              },
-              onSaved: (value){
-        
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ImageInput(onPickImage: onPickImage,),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: LocationInput(onPickLocation: onPickLocation,),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton.icon(onPressed: (){
-                  _savePlace();
-                }, label: const Text('Add Place'),
-                icon: const Icon(Icons.add),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+            children: [
+              TextFormField(
+                controller: _titleController,
+                maxLength: 20,
+                decoration: const InputDecoration(
+                  label: Text('Place name'),
                 ),
-              ],
-            )
-          ],
-        )),
+                validator: (value){
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'please enter a place';
+                  }
+                  return null;
+                },
+                onSaved: (value){
+          
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ImageInput(onPickImage: onPickImage,),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: LocationInput(onPickLocation: onPickLocation,),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton.icon(onPressed: (){
+                    _savePlace();
+                  }, label: const Text('Add Place'),
+                  icon: const Icon(Icons.add),
+                  ),
+                ],
+              )
+            ],
+          )),
+        ),
       ),
     );
   }
