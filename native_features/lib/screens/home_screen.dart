@@ -6,21 +6,48 @@ import 'package:native_features/screens/place_detail_screen.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends ConsumerWidget{
+class HomeScreen extends ConsumerStatefulWidget{
   const HomeScreen({super.key});
+  
+  @override
+  ConsumerState<HomeScreen> createState() {
+   return _HomeScreenState();
+  }
 
+}
+
+
+class _HomeScreenState extends ConsumerState<HomeScreen>
+{
+
+  late Future<void> _placesFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _placesFuture = ref.read(userPlacesProvider.notifier).loadDatabase();
+  }
   // void _storeData() async{
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context) {
 
     final placesList= ref.watch(userPlacesProvider);
+
+    var _isLoading = false;
 
     var content = placesList.isEmpty ? 
                   const Center(
                     child: Text('No places, try adding some'),
                   )
                   :
-                  ListView.builder(
+                  FutureBuilder(future: _placesFuture, builder: (ctx, snapshot){
+
+                    return snapshot.connectionState == ConnectionState.waiting ? 
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ):
+                    ListView.builder(
         itemCount: placesList.length,
         itemBuilder: (ctx,index){
         return Padding(
@@ -42,6 +69,7 @@ class HomeScreen extends ConsumerWidget{
               ),
         );
       });
+                  });
 
     //Future<List<String>?> placesList = _getData();
     return Scaffold(
